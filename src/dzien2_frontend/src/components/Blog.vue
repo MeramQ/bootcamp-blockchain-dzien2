@@ -5,8 +5,9 @@
             <button @click="pobierzWpisy" class="float-right bg-blue-600 rounded text-white p-4">refresh</button>
         </div>
         <div class="grid mx-6 gap-4 my-4">
-            <div v-for="wpis in wpisy" class="drop-shadow-x1 bg-stone-300 p-4">
+            <div v-for="(wpis, index) in wpisy" class="drop-shadow-xl bg-stone-300 p-4">
                 <p>{{ wpis }}</p>
+                <button class="bg-blue-600 rounded text-white p-4" @click="usunWpis(index)">usun</button>
             </div>
         </div>
         <div class="flex justify-center flex-col">
@@ -31,6 +32,10 @@ export default {
         },
         async dodajWpisy() {
             await dzien2_backend.dodaj_wpis(this.nowyBlog);
+        },
+        async usunWpis(index) {
+            await dzien2_backend.usun_wpis(index);
+            await this.pobierzWpisy();
         }
     },
     async mounted() {
